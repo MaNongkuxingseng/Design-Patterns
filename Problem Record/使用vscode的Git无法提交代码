@@ -1,0 +1,89 @@
+# 当你在使用 SSH 连接 GitHub 时遇到错误 `Permission denied (publickey)`，这通常表示 SSH 密钥未正确配置或未被 GitHub 识别。以下是一些解决此问题的步骤：
+
+### 步骤 1：检查 SSH 密钥是否存在
+
+1. **检查 SSH 密钥**：
+   在终端中运行以下命令，查看是否已经生成了 SSH 密钥：
+
+   ```bash
+   ls -al ~/.ssh
+   ```
+
+   你应该能看到类似 `id_rsa` 和 `id_rsa.pub` 的文件。如果没有这些文件，你需要生成一个新的 SSH 密钥。
+
+### 步骤 2：生成新的 SSH 密钥（如果需要）
+
+1. **生成 SSH 密钥**：
+   如果没有 SSH 密钥，可以使用以下命令生成一个新的密钥：
+
+   ```bash
+   ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+   ```
+
+   按照提示操作，通常可以直接按 `Enter` 使用默认设置。
+
+2. **启动 SSH 代理**：
+
+   ```bash
+   eval "$(ssh-agent -s)"
+   ```
+
+3. **添加 SSH 密钥到 SSH 代理**：
+
+   ```bash
+   ssh-add ~/.ssh/id_rsa
+   ```
+
+### 步骤 3：将公钥添加到 GitHub
+
+1. **复制公钥**：
+   使用以下命令复制公钥内容：
+
+   ```bash
+   cat ~/.ssh/id_rsa.pub
+   ```
+
+   将输出的内容复制到剪贴板。
+
+2. **添加公钥到 GitHub**：
+   - 登录到你的 GitHub 账户。
+   - 点击右上角的头像，选择 **Settings**。
+   - 在左侧菜单中选择 **SSH and GPG keys**。
+   - 点击 **New SSH key**，在标题中输入一个描述，然后将复制的公钥粘贴到密钥框中。
+   - 点击 **Add SSH key**。
+
+### 步骤 4：测试 SSH 连接
+
+1. **测试 SSH 连接**：
+   使用以下命令测试 SSH 连接：
+
+   ```bash
+   ssh -T git@github.com
+   ```
+
+   如果设置正确，你应该看到类似于以下的消息：
+
+   ```
+   Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+   ```
+
+### 步骤 5：检查 SSH 配置（可选）
+
+1. **检查 SSH 配置文件**：
+   如果你有多个 SSH 密钥，确保你的 `~/.ssh/config` 文件正确配置。可以使用以下格式：
+
+   ```plaintext
+   Host github.com
+       HostName github.com
+       User git
+       IdentityFile ~/.ssh/id_rsa
+   ```
+
+### 总结
+
+通过以上步骤，你应该能够解决 `Permission denied (publickey)` 的问题。如果问题仍然存在，请确保 SSH 密钥正确生成并添加到 GitHub，且没有其他配置错误。
+
+### 链接
+
+```markdown
+[GitHub](https://github.com)

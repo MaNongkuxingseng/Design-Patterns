@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-import netscape.javascript.JSObject;
 public class App {
     public static void main(String[] args) throws Exception {
         // 简单工厂模式，以运算器为例，通过对不同运算符的支持生成不同的对象。实现一个计算器控制台程序，要求输入两个数和运算符号。
@@ -19,6 +18,7 @@ public class App {
 
         System.out.println("请输入操作符");
         String operate = scanner.next();
+        scanner.close();
         int ret;
         switch (operate) {
             case "+":
