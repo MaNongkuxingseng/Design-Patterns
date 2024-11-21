@@ -2,6 +2,9 @@
 public abstract class Operation {
 private int numberA;
 private int numberB;
+public Operation() {
+
+}
 
 public Operation(int numberA, int numberB) {
     this.numberA = numberA;

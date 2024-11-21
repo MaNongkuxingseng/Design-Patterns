@@ -1,0 +1,13 @@
+@startuml backend
+class OperationAdd extends Operation
+ class OperationDiv extends Operation
+ class OperationSub extends Operation
+
+@enduml
+ class App
+ class Calculator
+ class Operation
+ class OperationAdd
+ class OperationDiv
+ class OperationFactory
+ class OperationSub
